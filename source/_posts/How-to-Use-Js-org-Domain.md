@@ -10,7 +10,7 @@ tags:
 - 域名
 excerpt: 如何免费申请js.org二级域名。最近看到很多人都去申请了js.org的域名，我就来写个教程吧！
 ---
-![](https://cdn.jsdelivr.net/gh/xhemj/xhemj.github.io@master/img/js-org/js-org-logo.png)</br>
+![](https://cdn.jsdelivr.net/gh/xhemj/static@master/img/js-org/js-org-logo.png)</br>
 最近看到很多人都去申请了js.org的域名，我就来写个教程吧！</br>
 （本教程只注重于申请域名，而不是如何使用Github）</br>
 看看我的成品：[https://xhemj.js.org/](https://xhemj.js.org/)</br>
