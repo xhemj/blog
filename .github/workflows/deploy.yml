@@ -13,7 +13,9 @@ jobs:
         run: |
           npm install
           npm run build
-          gulp
+          export HEXO_ALGOLIA_INDEXING_KEY=${{ secrets.HEXO_ALGOLIA_INDEXING_KEY }}
+          npm install hexo-algolia --save
+          hexo algolia
         env:
           CI: false
 
