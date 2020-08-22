@@ -1,1 +1,192 @@
-!function(a,i,t,e){function n(){var i=a(".navbar-main .navbar-start").outerWidth()+a(".navbar-main .navbar-end").outerWidth();a(document).outerWidth()<i?a(".navbar-main .navbar-menu").addClass("justify-content-start"):a(".navbar-main .navbar-menu").removeClass("justify-content-start")}function l(i,t){var e=a(i).find(".fold i");t?a(i).addClass("folded"):a(i).removeClass("folded"),t?e.removeClass("fa-angle-down"):e.removeClass("fa-angle-right"),t?e.addClass("fa-angle-right"):e.addClass("fa-angle-down")}function r(i){return'<span class="fold">'+("unfolded"===i?'<i class="fas fa-angle-down"></i>':'<i class="fas fa-angle-right"></i>')+"</span>"}var s,o;a('.article img:not(".not-gallery-item")').each(function(){0===a(this).parent("a").length&&(a(this).wrap('<a class="gallery-item" href="'+a(this).attr("src")+'"></a>'),this.alt&&a(this).after('<p class="has-text-centered is-size-6 caption">'+this.alt+"</p>"))}),"function"==typeof a.fn.lightGallery&&a(".article").lightGallery({selector:".gallery-item"}),"function"==typeof a.fn.justifiedGallery&&(a(".justified-gallery > p > .gallery-item").length&&a(".justified-gallery > p > .gallery-item").unwrap(),a(".justified-gallery").justifiedGallery()),a(".columns .column-right-shadow").children().length||a(".columns .column-right-shadow").append(a(".columns .column-right").children().clone()),"function"==typeof i&&a(".article-meta time").each(function(){a(this).text(i(a(this).attr("datetime")).fromNow())}),a(".article > .content > table").each(function(){a(this).width()>a(this).parent().width()&&a(this).wrap('<div class="table-overflow"></div>')}),n(),a(window).resize(n),a("figure.highlight table").wrap('<div class="highlight-body">'),void 0!==e&&void 0!==e.article&&void 0!==e.article.highlight&&(a("figure.highlight").addClass("hljs"),a("figure.highlight .code .line span").each(function(){var i=a(this).attr("class").split(/\s+/);1===i.length&&(a(this).addClass("hljs-"+i[0]),a(this).removeClass(i[0]))}),s=e.article.highlight.clipboard,o=e.article.highlight.fold.trim(),a("figure.highlight").each(function(){a(this).find("figcaption").length?(a(this).find("figcaption").addClass("level is-mobile"),a(this).find("figcaption").append('<div class="level-left">'),a(this).find("figcaption").append('<div class="level-right">'),a(this).find("figcaption div.level-left").append(a(this).find("figcaption").find("span")),a(this).find("figcaption div.level-right").append(a(this).find("figcaption").find("a"))):(s||o)&&a(this).prepend('<figcaption class="level is-mobile"><div class="level-left"></div><div class="level-right"></div></figcaption>')}),void 0!==t&&s&&(a("figure.highlight").each(function(){var i="code-"+Date.now()+(1e3*Math.random()|0),t='<a href="javascript:;" class="copy" title="Copy" data-clipboard-target="#'+i+' .code"><i class="fas fa-copy"></i></a>';a(this).attr("id",i),a(this).find("figcaption div.level-right").append(t)}),new t(".highlight .copy")),o&&(a("figure.highlight").each(function(){if(0<a(this).find("figcaption").find("span").length){var i=a(this).find("figcaption").find("span");if(-1<i[0].innerText.indexOf(">folded"))return i[0].innerText=i[0].innerText.replace(">folded",""),a(this).find("figcaption div.level-left").prepend(r("folded")),void l(this,!0)}a(this).find("figcaption div.level-left").prepend(r(o)),l(this,"folded"===o)}),a("figure.highlight figcaption .fold").click(function(){var i=a(this).closest("figure.highlight");l(i.eq(0),!i.hasClass("folded"))})));var d,h,f=a("#toc");0<f.length&&(d=function(){f.toggleClass("is-active"),h.toggleClass("is-active")},(h=a("<div>")).attr("id","toc-mask"),a("body").append(h),f.on("click",d),h.on("click",d),a(".navbar-main .catalogue").on("click",d)),void 0!==e&&void 0!==e.site.url&&void 0!==e.site.external_link&&e.site.external_link.enable&&a(".article .content a").filter(function(i,t){return t.href&&!a(t).attr("href").startsWith("#")&&0===t.classList.length&&function(i,t,e){try{t=new URL(t).hostname}catch(i){}if(!t)return!1;var a=void 0;try{a=new URL(i,"http://"+t)}catch(i){return!1}if("null"===a.origin)return!1;var n=a.hostname;if((e=e&&(Array.isArray(e)?e:[e]))&&e.length){var l=!0,r=!1,s=void 0;try{for(var o,d=e[Symbol.iterator]();!(l=(o=d.next()).done);l=!0){if(n===o.value)return!1}}catch(i){r=!0,s=i}finally{try{!l&&d.return&&d.return()}finally{if(r)throw s}}}return n!==t}(t.href,e.site.url,e.site.external_link.exclude)}).each(function(i,t){t.relList.add("noopener"),t.target="_blank"})}(jQuery,window.moment,window.ClipboardJS,window.IcarusThemeSettings);
+/* eslint-disable node/no-unsupported-features/node-builtins */
+(function($, moment, ClipboardJS, config) {
+    $('.article img:not(".not-gallery-item")').each(function() {
+        // wrap images with link and add caption if possible
+        if ($(this).parent('a').length === 0) {
+            $(this).wrap('<a class="gallery-item" href="' + $(this).attr('src') + '"></a>');
+            if (this.alt) {
+                $(this).after('<p class="has-text-centered is-size-6 caption">' + this.alt + '</p>');
+            }
+        }
+    });
+
+    if (typeof $.fn.lightGallery === 'function') {
+        $('.article').lightGallery({ selector: '.gallery-item' });
+    }
+    if (typeof $.fn.justifiedGallery === 'function') {
+        if ($('.justified-gallery > p > .gallery-item').length) {
+            $('.justified-gallery > p > .gallery-item').unwrap();
+        }
+        $('.justified-gallery').justifiedGallery();
+    }
+
+    if (!$('.columns .column-right-shadow').children().length) {
+        $('.columns .column-right-shadow').append($('.columns .column-right').children().clone());
+    }
+
+    if (typeof moment === 'function') {
+        $('.article-meta time').each(function() {
+            $(this).text(moment($(this).attr('datetime')).fromNow());
+        });
+    }
+
+    $('.article > .content > table').each(function() {
+        if ($(this).width() > $(this).parent().width()) {
+            $(this).wrap('<div class="table-overflow"></div>');
+        }
+    });
+
+    function adjustNavbar() {
+        const navbarWidth = $('.navbar-main .navbar-start').outerWidth() + $('.navbar-main .navbar-end').outerWidth();
+        if ($(document).outerWidth() < navbarWidth) {
+            $('.navbar-main .navbar-menu').addClass('justify-content-start');
+        } else {
+            $('.navbar-main .navbar-menu').removeClass('justify-content-start');
+        }
+    }
+    adjustNavbar();
+    $(window).resize(adjustNavbar);
+
+    function toggleFold(codeBlock, isFolded) {
+        const $toggle = $(codeBlock).find('.fold i');
+        !isFolded ? $(codeBlock).removeClass('folded') : $(codeBlock).addClass('folded');
+        !isFolded ? $toggle.removeClass('fa-angle-right') : $toggle.removeClass('fa-angle-down');
+        !isFolded ? $toggle.addClass('fa-angle-down') : $toggle.addClass('fa-angle-right');
+    }
+
+    function createFoldButton(fold) {
+        return '<span class="fold">' + (fold === 'unfolded' ? '<i class="fas fa-angle-down"></i>' : '<i class="fas fa-angle-right"></i>') + '</span>';
+    }
+
+    $('figure.highlight table').wrap('<div class="highlight-body">');
+    if (typeof config !== 'undefined'
+        && typeof config.article !== 'undefined'
+        && typeof config.article.highlight !== 'undefined') {
+
+        $('figure.highlight').addClass('hljs');
+        $('figure.highlight .code .line span').each(function() {
+            const classes = $(this).attr('class').split(/\s+/);
+            if (classes.length === 1) {
+                $(this).addClass('hljs-' + classes[0]);
+                $(this).removeClass(classes[0]);
+            }
+        });
+
+
+        const clipboard = config.article.highlight.clipboard;
+        const fold = config.article.highlight.fold.trim();
+
+        $('figure.highlight').each(function() {
+            if ($(this).find('figcaption').length) {
+                $(this).find('figcaption').addClass('level is-mobile');
+                $(this).find('figcaption').append('<div class="level-left">');
+                $(this).find('figcaption').append('<div class="level-right">');
+                $(this).find('figcaption div.level-left').append($(this).find('figcaption').find('span'));
+                $(this).find('figcaption div.level-right').append($(this).find('figcaption').find('a'));
+            } else {
+                if (clipboard || fold) {
+                    $(this).prepend('<figcaption class="level is-mobile"><div class="level-left"></div><div class="level-right"></div></figcaption>');
+                }
+            }
+        });
+
+        if (typeof ClipboardJS !== 'undefined' && clipboard) {
+            $('figure.highlight').each(function() {
+                const id = 'code-' + Date.now() + (Math.random() * 1000 | 0);
+                const button = '<a href="javascript:;" class="copy" title="Copy" data-clipboard-target="#' + id + ' .code"><i class="fas fa-copy"></i></a>';
+                $(this).attr('id', id);
+                $(this).find('figcaption div.level-right').append(button);
+            });
+            new ClipboardJS('.highlight .copy'); // eslint-disable-line no-new
+        }
+
+        if (fold) {
+            $('figure.highlight').each(function() {
+                if ($(this).find('figcaption').find('span').length > 0) {
+                    const span = $(this).find('figcaption').find('span');
+                    if (span[0].innerText.indexOf('>folded') > -1) {
+                        span[0].innerText = span[0].innerText.replace('>folded', '');
+                        $(this).find('figcaption div.level-left').prepend(createFoldButton('folded'));
+                        toggleFold(this, true);
+                        return;
+                    }
+                }
+                $(this).find('figcaption div.level-left').prepend(createFoldButton(fold));
+                toggleFold(this, fold === 'folded');
+            });
+
+            $('figure.highlight figcaption .fold').click(function() {
+                const $code = $(this).closest('figure.highlight');
+                toggleFold($code.eq(0), !$code.hasClass('folded'));
+            });
+        }
+    }
+
+    const $toc = $('#toc');
+    if ($toc.length > 0) {
+        const $mask = $('<div>');
+        $mask.attr('id', 'toc-mask');
+
+        $('body').append($mask);
+
+        function toggleToc() { // eslint-disable-line no-inner-declarations
+            $toc.toggleClass('is-active');
+            $mask.toggleClass('is-active');
+        }
+
+        $toc.on('click', toggleToc);
+        $mask.on('click', toggleToc);
+        $('.navbar-main .catalogue').on('click', toggleToc);
+    }
+
+    // hexo-util/lib/is_external_link.js
+    function isExternalLink(input, sitehost, exclude) {
+        try {
+            sitehost = new URL(sitehost).hostname;
+        } catch (e) { }
+
+        if (!sitehost) return false;
+
+        // handle relative url
+        let data;
+        try {
+            data = new URL(input, 'http://' + sitehost);
+        } catch (e) { return false; }
+
+        // handle mailto: javascript: vbscript: and so on
+        if (data.origin === 'null') return false;
+
+        const host = data.hostname;
+
+        if (exclude) {
+            exclude = Array.isArray(exclude) ? exclude : [exclude];
+
+            if (exclude && exclude.length) {
+                for (const i of exclude) {
+                    if (host === i) return false;
+                }
+            }
+        }
+
+        if (host !== sitehost) return true;
+
+        return false;
+    }
+
+    if (typeof config !== 'undefined'
+        && typeof config.site.url !== 'undefined'
+        && typeof config.site.external_link !== 'undefined'
+        && config.site.external_link.enable) {
+        $('.article .content a').filter((i, link) => {
+            return link.href
+                && !$(link).attr('href').startsWith('#')
+                && link.classList.length === 0
+                && isExternalLink(link.href,
+                    config.site.url,
+                    config.site.external_link.exclude);
+        }).each((i, link) => {
+            link.relList.add('noopener');
+            link.target = '_blank';
+        });
+    }
+}(jQuery, window.moment, window.ClipboardJS, window.IcarusThemeSettings));
