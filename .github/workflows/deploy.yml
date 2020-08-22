@@ -15,7 +15,6 @@ jobs:
           npm run build
           gulp
           npm run build
-          npm run deploy
         env:
           CI: false
 
