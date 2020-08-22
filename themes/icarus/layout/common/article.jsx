@@ -89,6 +89,7 @@ module.exports = class extends Component {
                     {/* Share button */}
                     {!index ? <Share config={config} page={page} helper={helper} /> : null}
                 </article>
+				
             </div>
             {/* Donate button */}
             {!index ? <Donates config={config} helper={helper} /> : null}
