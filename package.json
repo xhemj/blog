@@ -42,6 +42,6 @@
     "hexo-server": "^2.0.0",
     "hexo-util": "^1.8.0",
     "inferno": "^7.3.3",
-    "inferno-create-element": "^7.3.3"
+    "inferno-create-element": "^7.4.8"
   }
 }
