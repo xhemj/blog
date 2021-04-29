@@ -1,0 +1,22 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "21:00"
+    timezone: Asia/Chongqing
+  open-pull-requests-limit: 10
+  target-branch: source
+  labels:
+  - Dependabot
+  ignore:
+  - dependency-name: inferno
+    versions:
+    - 7.4.7
+  - dependency-name: inferno-create-element
+    versions:
+    - 7.4.7
+  - dependency-name: hexo-renderer-marked
+    versions:
+    - 3.3.0
